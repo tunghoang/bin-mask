@@ -1,0 +1,12 @@
+<!--<h5>{{self.value.value}}</h5>-->
+<ul class="m-table">
+    <li class="m-table-row">
+        <div ng-class="{'on': self.isOn($index)}" 
+            class="m-table-cell" 
+            ng-repeat="field in self.fields"
+            ng-click="self.turnOn($index)" title="{{field}}">
+            <div style="width:{{self.labelWidth||62}}px" class='field-label'>{{field}}</div>
+            <div style="text-align:center;"><i class="indicator {{self.icon}}"></i></div>
+        </div>
+    </li>
+</ul>

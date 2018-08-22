@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>FIXME</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.2/angular.min.js"></script>
+        <script src="bin-mask.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/handsontable@5.0.1/dist/handsontable.full.min.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/handsontable@5.0.1/dist/handsontable.full.min.css" rel="stylesheet" media="screen">
+        <link rel="stylesheet" href='themify-icons.css'>
+        <style>
+            .handsontable td {
+                white-space: nowrap;
+                vertical-align: middle;
+            }
+        </style>
+    </head>
+    <body ng-app="mainApp" ng-controller="mainController">
+        <bin-mask icon="ti-check" value="{value:111}" fields="['cat', 'dog', 'cow', 'fish', 'dear']"></bin-mask>
+
+        <div id="tableHolder">
+        </div>
+        <script type="text/javascript">
+            angular.module("mainApp", ["bin-mask"])
+            .controller("mainController", function($scope, $compile, $timeout) {
+                console.log("start");
+                $scope.fields = ["PERM_CORE", "BULK_DEN", "CT", "DTCO3", "ECGR", "FACIES", "GR", "HAZI"];
+                Handsontable.renderers.registerRenderer("binmask", 
+                    function(hotInstance, td, row, column, prop, value, cellProperties) {
+                        console.log(value);
+                        var html = `<bin-mask value="data[${row}].age" fields="fields"></bin-mask>`;
+                        console.log(html);
+                        var elem = angular.element(td);
+                        elem.html('');
+                        elem.append($compile(html)($scope));
+                        return td;
+                    }
+                );
+                var data = [
+                    {id: 1, name: "<i>Tung</i>", age: {value: 41}},
+                    {id: 2, name: "Tit", age: {value: 1}}
+                ];
+                $scope.data = data;
+                window.data = data;
+                var container = document.getElementById('tableHolder');
+                var hot = new Handsontable(container, {
+                    data: data,
+                    colHeaders: ["ID", "Name", "Age"],
+                    columns: [
+                        {data: "id"}, 
+                        {data: "name", renderer: "html"},
+                        {data: "age", renderer: "binmask", width: 6 + $scope.fields.length * 73 + 3, readOnly:true}
+                    ],
+                    autoColumnSize: true
+                });
+            });
+        </script>
+    </body>
+</html>

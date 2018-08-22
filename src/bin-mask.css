@@ -1,0 +1,38 @@
+bin-mask .m-table {
+    display: table;
+    margin: 3px;
+    margin-left:-1px;
+    padding-left: 0;
+    border-collapse: separate;
+    border-spacing: 3px;
+}
+bin-mask .m-table-row {
+    display: table-row;
+}
+bin-mask .m-table-cell {
+    display: table-cell;
+    padding: 3px;
+    border: 1px dotted #ccc;
+    font-size: 50%;
+    line-height: 1.6;
+    color: #ccc;
+}
+bin-mask .m-table-cell * {
+    cursor: pointer;
+}
+bin-mask .on {
+    background-color: pink;
+    color: red;
+}
+bin-mask .indicator {
+    visibility: hidden;
+}
+bin-mask .on .indicator {
+    visibility: unset;
+}
+bin-mask .field-label {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+}
